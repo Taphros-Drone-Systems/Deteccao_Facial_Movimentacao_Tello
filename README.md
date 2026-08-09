@@ -4,4 +4,4 @@
 opencv-python
 djitellopy
 ````
-## 2. 1° Script: FaceTrackingTello.py
+## 2. Primeiro Script: FaceTrackingTello.py
