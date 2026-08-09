@@ -34,5 +34,12 @@ def initializeTello():
   myDrone.yaw_velocity = 0
   #Temos também a velocidade geral do drone:
   myDrone.speed = 0
-  
+  # Vamos mostrar a carga da bateria
+  print(myDrone.get_battery())
+  # Vamos solicitar que streamings antigos que podem não ter sido desligados anteriormente sejam desligados agora:
+  myDrone.streamoff()
+  # Iniciamos um novo streaming de vídeo
+  myDrone.streamon()
+  # Retorne nosso objeto:
+  return myDrone 
 ````
