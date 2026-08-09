@@ -1,18 +1,23 @@
 # Movimentação baseada em detecção facial de DJI Tello Drones
+
 ## 1. Bibliotecas
+
 ````
 opencv-python
 djitellopy
 ````
 
 ## 2. Script que irá conter funções de suporte: utlis.py
+
 Importam-se as bibliotecas necessárias:
+
 ````
 from djitellopy import Tello
 import cv2
 ````
 
 Criamos uma função para inicializar e nos comunicarmos com o Tello:
+
 ````
 def initializeTello():
   # Dê um nome ao seu Tello e associe-o ao objeto "Tello":
@@ -44,14 +49,45 @@ def initializeTello():
   return myDrone 
 ````
 
+Definimos uma função que recebe as imagens captadas pela câmera do Tello:
+
+````
+# Os parâmetros da função são myDrone, o comprimento da imagem e sua altura
+def telloGetFrame(myDrone, w=360, h=240):
+  # Definimos a leitura dos frames da imagem
+  myFrame = myDrone.get_frame_read()
+  myFrame = myFrame.frame
+
+  # Podemos redefinir o tamanho da imagem
+  img = cv2.resize(myFrame, (w,h))
+
+  #Retornamos a imagem
+  return img
+````
+
 ## 3. Script principal: FaceTrackingTello.py
+
 ````
 # Importa-se tudo que está em utlis.py
 from utlis import *
 import cv2
 
+# Dimensões da imagem
+w,h = 360, 240
+
 # Chamamos a função initializeTello dentro de myDrone
 myDrone = initializeTello()
 
+# Conecte-se ao Tello via Wifi e execute o script para checar a conexão
+
+# Loop de recepção de frames que darão origem ao vídeo :
+while True:
+  # Chamada da função que recebe os frames
+  img = telloGetFrame(myDrone, w, h)
+
+  # Visualização da imagem na tela. O primeiro parâmetro é o nome da janela que irá abrir
+cv2.imshow('Image', img)
+...
 ````
+
 É necessário importar as imagens do Tello.
