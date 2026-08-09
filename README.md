@@ -86,7 +86,7 @@ while True:
   img = telloGetFrame(myDrone, w, h)
 
   # Visualização da imagem na tela. O primeiro parâmetro é o nome da janela que irá abrir
-cv2.imshow('Image', img)
+  cv2.imshow('Image', img)
 ...
 ````
 
