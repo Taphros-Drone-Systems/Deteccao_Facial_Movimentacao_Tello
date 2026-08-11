@@ -83,6 +83,9 @@ def findFace(img):
   # Os parâmetros de cv2.rectangle são: imagem, ponto inicial, ponto final, cor em BGR, em espessura da linha
   for (x,y,w,h) in faces:
     cv2.rectangle(img, (x, y), (x+w, y+h), (0, 0, 255), 2)
+
+  # Retorne a imagem
+  return img
 ````
 
 ## 3. Script principal: FaceTrackingTello.py
