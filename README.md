@@ -65,6 +65,9 @@ def telloGetFrame(myDrone, w=360, h=240):
   return img
 ````
 
+Para realizar a detecção facial, vamos utilizar o Método Viola Jones, que usa um arquivo _hard cascade_ para detectar faces. Então, precisamos importar o arquivo:
+
+
 ## 3. Script principal: FaceTrackingTello.py
 
 ````
