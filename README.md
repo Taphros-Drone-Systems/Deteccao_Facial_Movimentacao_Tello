@@ -7,7 +7,7 @@ opencv-python
 djitellopy
 ````
 
-## 2. Script que irá conter funções de suporte: utlis.py
+## 2. _Script_ que irá conter funções de suporte: _utlis.py_
 
 Importam-se as bibliotecas necessárias:
 
@@ -65,7 +65,7 @@ def telloGetFrame(myDrone, w=360, h=240):
   return img
 ````
 
-Para realizar a detecção facial, vamos utilizar o Método Viola Jones, que usa um arquivo _hard cascade_ para detectar faces. Então, precisamos colocar o arquivo _haarcascade_frontalface_default.xml_ em nosso diretório. Este arquivo está presente no topo desta página para _download_. Adicione a seguinte função ao nosso utlis.py :
+Para realizar a detecção facial, vamos utilizar o Método Viola Jones, que usa um arquivo _Hard Cascade_ para detectar faces. Então, precisamos colocar o arquivo _haarcascade_frontalface_default.xml_ em nosso diretório. Este arquivo está presente no topo desta página para _download_. Adicione a seguinte função ao nosso _utlis.py_ :
 
 ````
 def findFace(img):
@@ -88,7 +88,7 @@ def findFace(img):
   return img
 ````
 
-## 3. Script principal: FaceTrackingTello.py
+## 3. _Script_ principal: _FaceTrackingTello.py_
 
 ````
 # Importa-se tudo que está em utlis.py
@@ -104,7 +104,9 @@ myDrone = initializeTello()
 # Conecte-se ao Tello via Wifi e execute o script para checar a conexão
 
 # Loop de recepção de frames que darão origem ao vídeo :
+
 while True:
+
   # Chamada da função que recebe os frames
   img = telloGetFrame(myDrone, w, h)
 
