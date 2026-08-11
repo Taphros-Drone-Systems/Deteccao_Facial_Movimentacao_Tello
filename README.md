@@ -65,7 +65,7 @@ def telloGetFrame(myDrone, w=360, h=240):
   return img
 ````
 
-Para realizar a detecção facial, vamos utilizar o Método Viola Jones, que usa um arquivo _hard cascade_ para detectar faces. Então, precisamos colocar o arquivo _haarcascade_facedetection_defaults.xml_ em nosso diretório. Este arquivo está presente no topo desta página para _download_.
+Para realizar a detecção facial, vamos utilizar o Método Viola Jones, que usa um arquivo _hard cascade_ para detectar faces. Então, precisamos colocar o arquivo _haarcascade_frontalface_default.xml_ em nosso diretório. Este arquivo está presente no topo desta página para _download_.
 
 ## 3. Script principal: FaceTrackingTello.py
 
