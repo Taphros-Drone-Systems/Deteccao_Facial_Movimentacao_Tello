@@ -84,9 +84,17 @@ def findFace(img):
   for (x,y,w,h) in faces:
     cv2.rectangle(img, (x, y), (x+w, y+h), (0, 0, 255), 2)
 
+  # Lista com os centros das faces detectadas, para evitar detecção das múltiplas faces detectadas
+  myFaceListC = []
+
+  # Lista com as áreas das _bound boxes_
+  myFaceListArea
+
   # Retorne a imagem
   return img
 ````
+A ideia é que se houver mais de um rosto, não queremos detectar todas elas. Deste modo, o rosto mais próximo é aquele que deve ser detectado.
+
 
 ## 3. _Script_ principal: _FaceTrackingTello.py_
 
@@ -110,9 +118,16 @@ while True:
   # Chamada da função que recebe os frames
   img = telloGetFrame(myDrone, w, h)
 
+  # Chamada da função que detecta as faces
+  img = findFace(img)
+
   # Visualização da imagem na tela. O primeiro parâmetro é o nome da janela que irá abrir
   cv2.imshow('Image', img)
-...
+
+  # A tecla Q é usada para cessar a missão
+  if cv2.waitKey(1) & 0xFF == ord('q'):
+    myDrone.land()
+    break
 ````
 
 É necessário importar as imagens do Tello.
