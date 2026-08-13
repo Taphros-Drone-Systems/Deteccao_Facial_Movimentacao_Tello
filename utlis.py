@@ -42,23 +42,28 @@ def telloGetFrame(myDrone, w=360, h=240):
     return img
 
 def findFace(img):
-    # Defina a variável que recebe o modelo _Cascade_
-    faceCascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+  # Defina a variável que recebe o modelo _Cascade_
+  faceCascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
-    # Passamos a imagem para o domínio dos tons de cinza
-    imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+  # Passamos a imagem para o domínio dos tons de cinza
+  imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-    # Encontramos os rostos no frame
-    # Os parâmetros de _MultiScale_ são o _scale factor_ e o número mínimo de _neighbors_
-    faces = faceCascade.detectMultiScale(imgGray, 1.2, 4)
+  # Encontramos os rostos no frame
+  # Os parâmetros de _MultiScale_ são o _scale factor_ e o número mínimo de _neighbors_
+  faces = faceCascade.detectMultiScale(imgGray, 1.2, 4)
 
-    # Lista com os centros das faces detectadas, para evitar detecção das múltiplas faces detectadas
-    myFaceListC = []
+  # Lista com os centros das faces detectadas, para evitar detecção das múltiplas faces detectadas
+  myFaceListC = []
 
-    # Lista com as áreas das _bound boxes_
-    myFaceListArea = []
+  # Lista com as áreas das _bound boxes_
+  myFaceListArea = []
 
-  # Determine a área e os centros das imagens detectadas
+  # Encontre as faces e desenhe as caixas delimitadoras
+  # Os parâmetros de cv2.rectangle são: imagem, ponto inicial, ponto final, cor em BGR, em espessura da linha
+  for (x,y,w,h) in faces:
+    cv2.rectangle(img, (x, y), (x+w, y+h), (0, 0, 255), 2)
+
+    # Determine a área e os centros das imagens detectadas
     cx = x + w//2
     cy = y + h//2
     area = w*h
