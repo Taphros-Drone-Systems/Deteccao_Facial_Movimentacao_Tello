@@ -108,9 +108,11 @@ def findFace(img):
     # Retorne a imagem com o maior centro e a maior área das listas
     return img, [myFaceListC[i], myFaceListArea[i]]
   
-  # 
+  # Do contrário, retorne a imagem com valores nulos
   else:
     return img, [[0,0], 0]
+  
+  # A partir daqui vamos para a função _findFaces_ para adicionar a variável _info_
 ````
 A ideia é que se houver mais de um rosto, não queremos detectar todas elas. Deste modo, o rosto mais próximo é aquele que deve ser detectado.
 
@@ -138,7 +140,10 @@ while True:
   img = telloGetFrame(myDrone, w, h)
 
   # Chamada da função que detecta as faces
-  img = findFace(img)
+  img, info = findFace(img)
+
+  # Valor x do nosso ponto central, assim podemos observá-lo e ver como ele se comporta
+  print(info[0][0])
 
   # Visualização da imagem na tela. O primeiro parâmetro é o nome da janela que irá abrir
   cv2.imshow('Image', img)

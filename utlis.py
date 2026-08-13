@@ -58,16 +58,26 @@ def findFace(img):
     # Lista com as áreas das _bound boxes_
     myFaceListArea = []
 
-    # Encontre as faces e desenhe as caixas delimitadoras
-    # Os parâmetros de cv2.rectangle são: imagem, ponto inicial, ponto final, cor em BGR, em espessura da linha
-    for (x,y,w,h) in faces:
-        cv2.rectangle(img, (x, y), (x+w, y+h), (0, 0, 255), 2)
-        cx = x + w//2
-        cy = y + h//2
-        area = w*h
-        myFaceListArea.append(area)
-        myFaceListC.append([cx, cy])
-  
+  # Determine a área e os centros das imagens detectadas
+    cx = x + w//2
+    cy = y + h//2
+    area = w*h
+    
+    # Adicionamos as áreas e os centros às suas listas
+    myFaceListArea.append(area)
+    myFaceListC.append([cx, cy])
 
-    # Retorne a imagem
-    return img
+  # Se existe alguma área na lista de áreas
+  if len(myFaceListArea) != 0:
+
+    # Armazena-se o índice do elemento de maior área da lista 
+    i = myFaceListArea.index(max(myFaceListArea))
+    
+    # Retorne a imagem com o maior centro e a maior área das listas
+    return img, [myFaceListC[i], myFaceListArea[i]]
+  
+  # Do contrário, retorne a imagem com valores nulos
+  else:
+    return img, [[0,0], 0]
+  
+  # A partir daqui vamos para a função _findFaces_ para adicionar a variável _info_
