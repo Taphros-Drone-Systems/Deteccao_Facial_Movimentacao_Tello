@@ -83,21 +83,34 @@ def findFace(img):
   myFaceListC = []
 
   # Lista com as áreas das _bound boxes_
-  myFaceListArea []
+  myFaceListArea = []
 
   # Encontre as faces e desenhe as caixas delimitadoras
   # Os parâmetros de cv2.rectangle são: imagem, ponto inicial, ponto final, cor em BGR, em espessura da linha
   for (x,y,w,h) in faces:
     cv2.rectangle(img, (x, y), (x+w, y+h), (0, 0, 255), 2)
+
+    # Determine a área e os centros das imagens detectadas
     cx = x + w//2
     cy = y + h//2
     area = w*h
+    
+    # Adicionamos as áreas e os centros às suas listas
     myFaceListArea.append(area)
     myFaceListC.append([cx, cy])
-  
 
-  # Retorne a imagem
-  return img
+  # Se existe alguma área na lista de áreas
+  if len(myFaceListArea) != 0:
+
+    # Armazena-se o índice do elemento de maior área da lista 
+    i = myFaceListArea.index(max(myFaceListArea))
+    
+    # Retorne a imagem com o maior centro e a maior área das listas
+    return img, [myFaceListC[i], myFaceListArea[i]]
+  
+  # 
+  else:
+    return img, [[0,0], 0]
 ````
 A ideia é que se houver mais de um rosto, não queremos detectar todas elas. Deste modo, o rosto mais próximo é aquele que deve ser detectado.
 
