@@ -1,5 +1,5 @@
 # Movimentação baseada em detecção facial de DJI Tello Drones
-# Teste 2
+
 ## 1. Bibliotecas
 
 ````
