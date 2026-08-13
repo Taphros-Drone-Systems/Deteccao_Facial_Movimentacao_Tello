@@ -79,16 +79,22 @@ def findFace(img):
   # Os parâmetros de _MultiScale_ são o _scale factor_ e o número mínimo de _neighbors_
   faces = faceCascade.detectMultiScale(imgGray, 1.2, 4)
 
-  # Encontre as faces e desenhe as caixas delimitadoras
-  # Os parâmetros de cv2.rectangle são: imagem, ponto inicial, ponto final, cor em BGR, em espessura da linha
-  for (x,y,w,h) in faces:
-    cv2.rectangle(img, (x, y), (x+w, y+h), (0, 0, 255), 2)
-
   # Lista com os centros das faces detectadas, para evitar detecção das múltiplas faces detectadas
   myFaceListC = []
 
   # Lista com as áreas das _bound boxes_
-  myFaceListArea
+  myFaceListArea []
+
+  # Encontre as faces e desenhe as caixas delimitadoras
+  # Os parâmetros de cv2.rectangle são: imagem, ponto inicial, ponto final, cor em BGR, em espessura da linha
+  for (x,y,w,h) in faces:
+    cv2.rectangle(img, (x, y), (x+w, y+h), (0, 0, 255), 2)
+    cx = x + w//2
+    cy = y + h//2
+    area = w*h
+    myFaceListArea.append(area)
+    myFaceListC.append([cx, cy])
+  
 
   # Retorne a imagem
   return img
