@@ -130,6 +130,9 @@ def trackFace(myDrone, info, w, pid, pError):
   # Precisamos garantir que a velocidade não exceda limites determinados. Para isso, podemos           utilizar a função clip do numpy
   speed = np.clip(speed, -100, 100)
 
+  # Visualizando as velocidades
+  print(speed)
+
   # Checagem de se o centro da detecção existe
   if info[0][0] != 0:
 
@@ -143,6 +146,16 @@ def trackFace(myDrone, info, w, pid, pError):
     myDrone.up_down_velocity = 0
     myDrone.yaw_velocity = 0
     error = 0
+
+  # Agora precisamos enviar as velocidades ao Tello, pois apenas setamos elas
+  if myDrone.send_rc_control:
+    myDrone.send_rc_control(myDrone.left_right_velocity,
+                            myDrone.for_back_velocity,
+                            myDrone.up_down_velocity,
+                            myDrone.yaw_velocity)
+
+  # Precisamos retornar o erro encontrado, quando ele existe, porque será usado para a próxima         detecção
+  return error
 ````
 
 
@@ -159,6 +172,9 @@ w,h = 360, 240
 # Parâmetros kp, kD e kI do PID
 pid = [0.5, 0.5, 0]
 
+# Valor inicial do erro anterior
+pError = 0
+
 # Chamamos a função initializeTello dentro de myDrone
 myDrone = initializeTello()
 
@@ -168,11 +184,14 @@ myDrone = initializeTello()
 
 while True:
 
-  # Chamada da função que recebe os frames
+  # Passo 1: Chamada da função que recebe os frames
   img = telloGetFrame(myDrone, w, h)
 
-  # Chamada da função que detecta as faces
+  # Passo 2: Chamada da função que detecta as faces
   img, info = findFace(img)
+
+  # Passo 3: 
+  pError = trackFace(myDrone, info, w, pid, pError)
 
   # Valor x do nosso ponto central (cx) , assim podemos observá-lo e ver como ele se comporta
   print(info[0][0])
@@ -183,6 +202,7 @@ while True:
   # A tecla Q é usada para cessar a missão
   if cv2.waitKey(1) & 0xFF == ord('q'):
     myDrone.land()
+    myDrone.end()
     break
 ````
 
