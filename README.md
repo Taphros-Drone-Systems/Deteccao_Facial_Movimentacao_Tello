@@ -116,6 +116,17 @@ def findFace(img):
 ````
 A ideia é que se houver mais de um rosto, não queremos detectar todas elas. Deste modo, o rosto mais próximo é aquele que deve ser detectado.
 
+Agora, vamos implementar o PID para suavizar a grande latência dos dados recebidos.
+
+````
+def trackFace(myDrone, info, w, pid, pError):
+  # Nosso ponto de referência será a metade da largura da imagem, portando o erro é a diferença entre o cx detectado e o centro da imagem
+  error = info[0][0] - w//2
+
+  # Equação do PID para velocidade
+  speed = pid[0]*error + pid[1]*(error-pError)
+````
+
 
 ## 3. _Script_ principal: _FaceTrackingTello.py_
 
