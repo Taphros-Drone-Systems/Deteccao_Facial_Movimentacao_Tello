@@ -112,7 +112,7 @@ def findFace(img):
   else:
     return img, [[0,0], 0]
   
-  # A partir daqui vamos para a função _findFaces_ para adicionar a variável _info_
+  # A partir daqui vamos para a função findFaces em FacetrackingTello.py para adicionar a variável "info"
 ````
 A ideia é que se houver mais de um rosto, não queremos detectar todas elas. Deste modo, o rosto mais próximo é aquele que deve ser detectado.
 
@@ -142,7 +142,7 @@ while True:
   # Chamada da função que detecta as faces
   img, info = findFace(img)
 
-  # Valor x do nosso ponto central, assim podemos observá-lo e ver como ele se comporta
+  # Valor x do nosso ponto central (cx) , assim podemos observá-lo e ver como ele se comporta
   print(info[0][0])
 
   # Visualização da imagem na tela. O primeiro parâmetro é o nome da janela que irá abrir
