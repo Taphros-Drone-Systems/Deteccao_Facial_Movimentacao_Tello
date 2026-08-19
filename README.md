@@ -175,6 +175,9 @@ pid = [0.5, 0.5, 0]
 # Valor inicial do erro anterior
 pError = 0
 
+# Para não voar, set o parâmetro abaixo para 1. Para voar, set para 0
+startCounter = 0
+
 # Chamamos a função initializeTello dentro de myDrone
 myDrone = initializeTello()
 
@@ -183,7 +186,11 @@ myDrone = initializeTello()
 # Loop de recepção de frames que darão origem ao vídeo :
 
 while True:
-
+  # Decolagem
+  if startCounter == 0:
+    myDrone.takeoff()
+    startCounter = 1
+  
   # Passo 1: Chamada da função que recebe os frames
   img = telloGetFrame(myDrone, w, h)
 
