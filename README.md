@@ -139,7 +139,7 @@ def trackFace(myDrone, info, w, pid, pError):
     # Enviamos a velocidade corrigida pelo PID ao yaw
     myDrone.yaw_velocity = speed
 
-  Se não, zeramos as velocidades e os erros
+  # Se não, zeramos as velocidades e os erros
   else:
     myDrone.for_back_velocity = 0
     myDrone.left_right_velocity = 0
