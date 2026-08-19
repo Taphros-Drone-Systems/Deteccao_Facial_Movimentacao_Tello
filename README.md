@@ -128,7 +128,7 @@ def trackFace(myDrone, info, w, pid, pError):
   speed = pid[0]*error + pid[1]*(error-pError)
 
   # Precisamos garantir que a velocidade não exceda limites determinados. Para isso, podemos           utilizar a função clip do numpy
-  speed = np.clip(speed, -100, 100)
+  speed = int(np.clip(speed, -100, 100))
 
   # Visualizando as velocidades
   print(speed)
