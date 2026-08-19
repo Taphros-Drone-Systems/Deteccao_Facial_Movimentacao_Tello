@@ -123,7 +123,7 @@ def trackFace(myDrone, info, w, pid, pError):
   # Nosso ponto de referência será a metade da largura da imagem, portando o erro é a diferença entre o cx detectado e o centro da imagem
   error = info[0][0] - w//2
 
-  # Equação do PID para velocidade
+  # Equação do PID para velocidade: kp*error + kD*(error-pError)
   speed = pid[0]*error + pid[1]*(error-pError)
 ````
 
@@ -137,6 +137,7 @@ import cv2
 
 # Dimensões da imagem
 w,h = 360, 240
+pid = [0.5, 0.5, 0]
 
 # Chamamos a função initializeTello dentro de myDrone
 myDrone = initializeTello()
