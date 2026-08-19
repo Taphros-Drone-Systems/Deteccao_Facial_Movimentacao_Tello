@@ -14,6 +14,7 @@ Importam-se as bibliotecas necessárias:
 ````
 from djitellopy import Tello
 import cv2
+import numpy as np
 ````
 
 Criamos uma função para inicializar e nos comunicarmos com o Tello:
@@ -120,11 +121,28 @@ Agora, vamos implementar o PID para suavizar a grande latência dos dados recebi
 
 ````
 def trackFace(myDrone, info, w, pid, pError):
-  # Nosso ponto de referência será a metade da largura da imagem, portando o erro é a diferença entre o cx detectado e o centro da imagem
+  # Nosso ponto de referência será a metade da largura da imagem, portando o erro é a diferença e      entre o cx detectado e o centro da imagem
   error = info[0][0] - w//2
 
   # Equação do PID para velocidade: kp*error + kD*(error-pError)
   speed = pid[0]*error + pid[1]*(error-pError)
+
+  # Precisamos garantir que a velocidade não exceda limites determinados. Para isso, podemos           utilizar a função clip do numpy
+  speed = np.clip(speed, -100, 100)
+
+  # Checagem de se o centro da detecção existe
+  if info[0][0] != 0:
+
+    # Enviamos a velocidade corrigida pelo PID ao yaw
+    myDrone.yaw_velocity = speed
+
+  Se não, zeramos as velocidades e os erros
+  else:
+    myDrone.for_back_velocity = 0
+    myDrone.left_right_velocity = 0
+    myDrone.up_down_velocity = 0
+    myDrone.yaw_velocity = 0
+    error = 0
 ````
 
 
@@ -137,6 +155,8 @@ import cv2
 
 # Dimensões da imagem
 w,h = 360, 240
+
+# Parâmetros kp, kD e kI do PID
 pid = [0.5, 0.5, 0]
 
 # Chamamos a função initializeTello dentro de myDrone
