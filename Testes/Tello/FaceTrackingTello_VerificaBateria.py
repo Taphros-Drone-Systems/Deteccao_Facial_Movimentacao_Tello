@@ -23,9 +23,9 @@ myDrone = initializeTello()
 
 while True:
   # Decolagemq
-  if startCounter == 0:
-    myDrone.takeoff()
-    startCounter = 1
+  if myDrone.get_battery() < 20:
+    myDrone.land()
+    myDrone.end()
   
   # Passo 1: Chamada da função que recebe os frames
   img = telloGetFrame(myDrone, w, h)
