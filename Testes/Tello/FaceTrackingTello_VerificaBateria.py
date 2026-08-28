@@ -22,6 +22,9 @@ myDrone = initializeTello()
 # Loop de recepção de frames que darão origem ao vídeo :
 
 while True:
+  # Mostra bateria
+  print(myDrone.get_battery())
+  
   # Decolagemq
   if myDrone.get_battery() < 20:
     myDrone.land()
