@@ -29,6 +29,12 @@ def initializeTello():
   # Iniciamos um novo streaming de vídeo
   myDrone.streamon()
 
+  # Sobe 70 cm
+  myDrone.takeoff()
+  time.sleep(2)
+  myDrone.move_up(70)
+  time.sleep(3)
+
   # Retorne nosso objeto:
   return myDrone 
 
