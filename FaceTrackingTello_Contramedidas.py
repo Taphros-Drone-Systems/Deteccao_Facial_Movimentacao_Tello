@@ -1,4 +1,7 @@
 #Murilo Petegrosso Peres
+
+# Verificação de bateria + Voo até 1,70 m
+
 # Importa-se tudo que está em utlis.py
 from utlis import *
 import cv2
@@ -24,12 +27,11 @@ myDrone = initializeTello()
 
 while True:
   # Decolagemq
-  if startCounter == 0 and myDrone.get_battery() < 20::
-    myDrone.takeoff()
-    startCounter = 1
-  else 
+  if startCounter == 0 and myDrone.get_battery() < 20:
     myDrone.land()
-    drone.end
+    myDrone.end()
+  startCounter = 1
+
   # Passo 1: Chamada da função que recebe os frames
   img = telloGetFrame(myDrone, w, h)
 
